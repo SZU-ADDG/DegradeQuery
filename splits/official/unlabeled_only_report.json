@@ -1,0 +1,13 @@
+{
+  "official_test_row_ids_sha256": "1486c0e5e4b5e4bbce6e69fdc396188e7ff54a9264a745805d38f58db170369a",
+  "path": "splits/official/official_unlabeled_only.csv",
+  "pretrain_labeled_rows": 0,
+  "pretrain_rows": 7134,
+  "rows_total": 8636,
+  "scheme": "official_unlabeled_only",
+  "sha256": "e3253540d9db2a1117ddf2595c7d1bb6ac496966cd0322cb3a6df2b8589d5dcd",
+  "supervised_train_positive": 469,
+  "supervised_train_rows": 1202,
+  "test_positive": 108,
+  "test_rows": 300
+}

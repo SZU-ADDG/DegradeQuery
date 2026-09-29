@@ -1,0 +1,119 @@
+project:
+  name: DegradeQuery
+  version: "0.1.5"
+  root: "."
+  seed: 111
+  device: "auto"
+
+paths:
+  data_dir: "data"
+  output_dir: "output"
+  docs_dir: "docs"
+
+data:
+  primary_dataset: "protac8k"
+  protac8k_record_id: "14728925"
+  protac8k_dir: "data/protac8k"
+  protac8k_official_name: "data/protac8k_official_name.json"
+  normalized_protac8k: "data/protac8k_normalized.csv"
+  normalized_molglue: "data/molglue_normalized.csv"
+  normalized_mgtbind: "data/mgtbind_normalized.csv"
+  sequence_cache: "data/uniprot_sequences.json"
+  feature_cache: "data/feature_cache.pt"
+  protein_emb_cache: "data/protein_emb_cache.pt"
+  esm2_650m_embeddings: "data/esm2_650m_embeddings.pt"
+
+benchmark:
+  protocol: "degrademaster_code_split_seed111"
+  reporting_protocol: "paper_authoritative_no_test_model_selection"
+  selection_rule: "acc_then_f1_then_auroc"
+  train_rate: 0.8
+  seed: 111
+  train_val_test: [0.70, 0.15, 0.15]
+  allow_asset_fallback: false
+  asset_fallback_is_benchmark: false
+  official_name_json_url: "https://raw.githubusercontent.com/ABILiLab/DegradeMaster/main/data/PROTAC/name.json"
+  label_rule: "protac8k_dc50_dmax"
+  primary_metric: "auroc"
+
+labeling:
+  protac_low_dc50_nm: 100.0
+  protac_low_dmax_percent: 80.0
+  positive_label: 1
+  negative_label: 0
+  degradation_percent_positive_threshold: 50.0
+
+features:
+  use_morgan_fp: true
+  morgan_radius: 2
+  morgan_bits: 2048
+  use_mol_graph: true
+  max_atoms: 180
+  max_atoms_hard_limit: 256
+  protein_encoder: "aac"
+  protein_feature_dim: 150
+  hashed_kmer_dim: 128
+  esm_model: "facebook/esm2_t6_8M_UR50D"
+  esm2_model: "facebook/esm2_t33_650M_UR50D"
+  use_target_sequence: true
+  use_recruiter_sequence: true
+  use_cell_line: true
+  use_dataset_aux_features: true
+
+model:
+  name: "DQSeqGraph"
+  hidden_dim: 256
+  mol_gnn_layers: 3
+  mol_gnn_dropout: 0.15
+  protein_proj_dim: 256
+  fusion_dropout: 0.25
+  use_pairwise_interactions: true
+  use_task_episodic_loss: true
+  episodic_alpha: 0.10
+  episodic_k_support: 4
+  episodic_q_query: 4
+  episodic_min_task_size: 8
+
+train:
+  mode: "supervised"
+  batch_size: 64
+  epochs: 120
+  lr: 0.0001
+  weight_decay: 0.0001
+  early_stop_patience: 20
+  class_weight: "auto"
+  grad_clip_norm: 5.0
+  num_workers: 0
+  optimizer: "AdamW"
+  scheduler: "reduce_on_plateau"
+  loss: "focal"
+  focal_gamma: 1.0
+  focal_alpha: "auto"
+
+pretrain:
+  epochs: 60
+  batch_size: 64
+  lr: 0.0003
+  weight_decay: 0.0001
+  temperature: 0.1
+  temperature_tuple: 0.1
+  temperature_mol: 0.1
+  lambda_tuple: 1.0
+  lambda_mol: 0.1
+  tuple_negative_policy: "full"
+  graph_edge_drop_prob: 0.15
+  atom_mask_prob: 0.15
+
+semi:
+  enabled: false
+  pseudo_rounds: 2
+  selector: "threshold"
+  confidence_threshold: 0.90
+  balanced_topk: 500
+  pseudo_label_weight: 0.25
+
+output:
+  keep_best_n: 5
+  save_predictions: true
+  save_attention: false
+  ece_bins: 10

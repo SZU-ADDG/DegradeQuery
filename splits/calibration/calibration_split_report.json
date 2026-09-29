@@ -1,0 +1,29 @@
+{
+  "1": {
+    "path": "splits/calibration/calibration_holdout_seed1.csv",
+    "seed": 1,
+    "test_labeled": 300,
+    "train_labeled": 961,
+    "val_fraction": 0.2,
+    "val_labeled": 241,
+    "val_positive": 94
+  },
+  "2": {
+    "path": "splits/calibration/calibration_holdout_seed2.csv",
+    "seed": 2,
+    "test_labeled": 300,
+    "train_labeled": 961,
+    "val_fraction": 0.2,
+    "val_labeled": 241,
+    "val_positive": 94
+  },
+  "3": {
+    "path": "splits/calibration/calibration_holdout_seed3.csv",
+    "seed": 3,
+    "test_labeled": 300,
+    "train_labeled": 961,
+    "val_fraction": 0.2,
+    "val_labeled": 241,
+    "val_positive": 94
+  }
+}

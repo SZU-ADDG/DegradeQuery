@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use DegradeQuery, please cite the NeurIPS 2026 paper."
+title: "DegradeQuery: Counterfactual Tuple Pretraining for Context-Aware PROTAC Degradation Prediction"
+type: software
+authors:
+  - family-names: Xu
+    given-names: Dong
+  - family-names: Yang
+    given-names: Zhangfan
+  - family-names: Wu
+    given-names: Jiantao
+  - family-names: Zhu
+    given-names: Zexuan
+  - family-names: Li
+    given-names: Jianqiang
+  - family-names: Ji
+    given-names: Junkai
+version: 0.1.5
+date-released: 2026-09-30
+license: MIT
