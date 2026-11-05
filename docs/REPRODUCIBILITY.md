@@ -183,29 +183,31 @@ The split command prints the generated overlay path. Supply that path through `-
 
 ## Target-wise few-shot adaptation
 
-Generate the requested episode definition:
+Table 4 uses 2, 4 or 8 support examples **per class** and seeds 1 through 3.
+The [nine archived splits](../splits/fewshot) identify the support and query rows for
+each held-out target. For two examples per class and seed 1, pass
+`--split-file splits/fewshot/fewshot_k2_seed1.csv` to supervised base training
+for Sup and to both pretraining and supervised base training for CTP.
+This keeps the held-out targets outside base training.
+
+Adapt only the classifier head of the matching base checkpoint:
 
 ```bash
-python dq.py split \
-  --dataset protac8k --scheme fewshot_target \
-  --seed 1 --shots-per-class 1
-```
-
-Adapt only the classifier head of a trained Sup or CTP checkpoint:
-
-```bash
-python dq.py fewshot \
+python dq.py --seed 1 fewshot \
   --dataset protac8k \
-  --split-file PATH_PRINTED_BY_SPLIT \
-  --checkpoint TRAINED_CHECKPOINT \
-  --shots-per-class 1 \
+  --split-file splits/fewshot/fewshot_k2_seed1.csv \
+  --checkpoint MATCHING_BASE_CHECKPOINT \
+  --shots-per-class 2 \
   --adapt classifier_head \
   --adapt-steps 20 --adapt-lr 0.0001 \
   --threshold 0.5 \
-  --run-label fewshot_k1_s1
+  --run-label fewshot_k2_seed1_sup
 ```
 
-Use `--shots-per-class 3` or `5` for the other reported settings.
+For CTP, use the matching CTP checkpoint and a distinct run label. Change the
+seed and the number of shots together in the path, command and run label for
+the other settings. For each method and number of shots, average the
+episode-macro metrics in `metrics.test` over the three seeds.
 
 ## Train-side calibration splits
 
