@@ -8,10 +8,9 @@ Dong Xu, Zhangfan Yang, Jiantao Wu, Zexuan Zhu, Jianqiang Li, and Junkai Ji · *
 
 DegradeQuery predicts high or low degradation for a given proteolysis-targeting chimera (PROTAC), target protein and E3 ubiquitin ligase. It learns from records with missing activity measurements by keeping the molecule fixed and contrasting the recorded tuple with replacements of the target, the ligase, or both. The encoder is then fine-tuned on measured degradation labels.
 
-<picture>
-  <source media="(max-width: 600px)" srcset="docs/tuple-pretraining-mobile.svg">
-  <img src="docs/tuple-pretraining.svg" width="810" alt="DegradeQuery keeps the PROTAC fixed and contrasts the recorded target and E3 combination with replacements. The pretrained encoder is fine-tuned to predict high or low degradation.">
-</picture>
+[![Figure 1 from the paper. DegradeQuery learns from observed and counterfactual molecule–target–E3 tuples, then fine-tunes the encoder for high or low degradation prediction.](docs/figure-1.png)](docs/figure-1.pdf)
+
+*Figure 1. Overview of DegradeQuery.* [View the full-size figure (PDF)](docs/figure-1.pdf)
 
 ## PROTAC-8K results
 
