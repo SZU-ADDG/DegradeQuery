@@ -9,3 +9,17 @@ output/
 *.pt
 *.pth
 *.ckpt
+
+# Runtime logs and generated local notes
+/docs/RUN_NOTES.md
+/docs/CHANGELOG.md
+*.log
+*.log.*
+logs/
+
+# Local work records and previews
+.figure-work/
+.learnings/
+.codex/
+.claude/
+.playwright-cli/
